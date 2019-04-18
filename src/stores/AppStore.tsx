@@ -20,21 +20,28 @@ export class AppStore {
 
     @observable activeRecipe: RecipeType | null = null;
 
+    @observable loading: boolean = false;
+
+
+
     @action getRecipes = async (searchItem: string) => {
+        this.loading = true;
         const API_call = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${API_key}&q=${searchItem}&count=12`);
         const data = await API_call.json();
 
         this.recipes = data.recipes;
+        this.loading = false;
     };
 
     @action getSingleRecipe = async (recipe_id: string) => {
+        this.loading = true;
         const req = await fetch(`https://cors-anywhere.herokuapp.com/https://www.food2fork.com/api/search?key=${API_key}&rId=${recipe_id}`);
         const res = await req.json();
 
         this.activeRecipe = res.recipes[0];
-        console.log('blabla ze stora', this.activeRecipe)
-    };
+        this.loading = false;
 
+    };
 };
 
 export default React.createContext(

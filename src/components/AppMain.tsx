@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import FormComponent from './FormComponent';
 import Recipes from './Recipes';
 
-import { AppStore } from './AppStore';
-import AppContext from './AppStore';
+import { AppStore } from '../stores/AppStore';
+import AppContext from '../stores/AppStore';
 
 import styled from '@emotion/styled';
 
@@ -45,7 +45,7 @@ class AppMain extends React.Component<AppPropsTypes> {
             <div>
                 <Title>Recipe Search</Title>
                 <FormComponent getRecipe={this.getRecipe} />
-                <Recipes recipes={this.props.store.recipes}/>
+                <Recipes recipes={this.props.store.recipes} loading={this.props.store.loading}/>
             </div>
         )
     }

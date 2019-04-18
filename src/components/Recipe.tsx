@@ -3,8 +3,9 @@ import React from 'react';
 import { RouteComponentProps, NavLink } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
-import { AppStore } from './AppStore';
-import AppContext from './AppStore';
+import Spinner from './Spinner';
+import { AppStore } from '../stores/AppStore';
+import AppContext from '../stores/AppStore';
 
 import styled from '@emotion/styled';
 
@@ -58,6 +59,10 @@ class Recipe extends React.Component<RecipePropsTypes> {
 
     render() {
         const recipe = this.props.store.activeRecipe;
+        const loading = this.props.store.loading;
+        if (loading) {
+            return <Spinner />
+        }
         return (
             <div>
                 {recipe &&
